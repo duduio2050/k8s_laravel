@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     zip \
     unzip \
-    nginx
+    nginx \
+    supervisor
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -17,6 +18,12 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN cp .env.example .env && php artisan key:generate
 
-EXPOSE 9000
+# Nginx 설정
+COPY docker/nginx.conf /etc/nginx/sites-available/default
 
-CMD ["php-fpm"]
+# Supervisor 설정
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 80
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

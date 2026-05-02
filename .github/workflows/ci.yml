@@ -30,4 +30,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: 158.247.192.124:30002/laraveltest/k8s-laravel:${{ github.sha }}
+          tags: |
+            158.247.192.124:30002/laraveltest/k8s-laravel:${{ github.sha }}
+            158.247.192.124:30002/laraveltest/k8s-laravel:latest

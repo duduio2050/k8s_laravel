@@ -19,10 +19,10 @@ RUN composer install --no-dev --optimize-autoloader
 RUN cp .env.example .env && php artisan key:generate
 
 # Nginx 설정
-COPY docker/nginx.conf /etc/nginx/sites-available/default
+COPY docker/nginx/nginx.conf /etc/nginx/sites-available/default
 
 # Supervisor 설정
-COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 80
 
